@@ -9,21 +9,13 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-<<<<<<< HEAD
             'cookieValidationKey' => 'h2HBVk9LVQMAWUrLli6RnjgESpwkbu0s',
-=======
-            'cookieValidationKey' => 'eCE2588yg94Eq7G8I0RkwyE8SEeh25Qx',
->>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-<<<<<<< HEAD
             'identityClass' => 'app\models\BoundariesUser',
-=======
-            'identityClass' => 'app\models\User',
->>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [

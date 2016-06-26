@@ -64,7 +64,6 @@ class PropertiesController extends Controller
     public function actionCreate()
     {
         $model = new Property();
-		var_dump(Yii::$app->request->post());
 		$property  = Yii::$app->request->post();
 		if(isset($property["Property"])){
 			$user_id = Yii::$app->user->getId();
@@ -74,9 +73,9 @@ class PropertiesController extends Controller
 			if ($model->load($property) && $model->save()) {
 				return $this->redirect(['view', 'id' => $model->id]);
 			} else {
-				/*return $this->render('create', [
+				return $this->render('create', [
 					'model' => $model,
-				]);*/
+				]);
 			}
 		} else {
 			return $this->render('create', [
