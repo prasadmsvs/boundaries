@@ -34,12 +34,20 @@ class Property extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+<<<<<<< HEAD
             [['name', 'user'], 'required'],
+=======
+            [['id', 'name', 'user'], 'required'],
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
             [['id', 'location', 'user'], 'integer'],
             [['name'], 'string', 'max' => 225],
             [['description'], 'string', 'max' => 255],
             [['location'], 'exist', 'skipOnError' => true, 'targetClass' => Locations::className(), 'targetAttribute' => ['location' => 'id']],
+<<<<<<< HEAD
             [['user'], 'exist', 'skipOnError' => true, 'targetClass' => BoundariesUser::className(), 'targetAttribute' => ['user' => 'id']],
+=======
+            [['user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user' => 'id']],
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
         ];
     }
 

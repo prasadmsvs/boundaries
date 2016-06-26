@@ -2,12 +2,24 @@
 
 /* @var $this yii\web\View */
 
+<<<<<<< HEAD
 $this->title = 'Boundaries';
+=======
+$this->title = 'My Yii Application';
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
+<<<<<<< HEAD
         
+=======
+        <h1>Congratulations!</h1>
+
+        <p class="lead">You have successfully created your Yii-powered application.</p>
+
+        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
     </div>
 
     <div class="body-content">

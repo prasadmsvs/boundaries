@@ -8,6 +8,10 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+<<<<<<< HEAD
+=======
+use app\models\UserForm;
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
 
 class SiteController extends Controller
 {
@@ -91,4 +95,25 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+<<<<<<< HEAD
+=======
+	
+	public function actionHello()
+    {
+		$name = 'prasad';
+        return $this->render('hello',array('name'=>$name));
+    }
+	
+	public function actionUser()
+	{
+		$model = new UserForm;
+		
+		if($model->load(Yii::$app->request->post()) && $model->validate())
+		{
+			Yii::$app->session->setFlash('success','Successful');
+		}
+		
+		return $this->render('UserForm',['model'=>$model]);
+	}
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
 }

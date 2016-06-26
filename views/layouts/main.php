@@ -27,7 +27,11 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
+<<<<<<< HEAD
         'brandLabel' => 'Boundaries',
+=======
+        'brandLabel' => 'My Company',
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -45,7 +49,11 @@ AppAsset::register($this);
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
                 . Html::submitButton(
+<<<<<<< HEAD
                     'Logout (' . Yii::$app->user->identity->email . ')',
+=======
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
                     ['class' => 'btn btn-link']
                 )
                 . Html::endForm()

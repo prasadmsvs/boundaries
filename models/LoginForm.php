@@ -73,7 +73,11 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
+<<<<<<< HEAD
             $this->_user = BoundariesUser::findByUsername($this->username);
+=======
+            $this->_user = User::findByUsername($this->username);
+>>>>>>> 1b28fc00743f6bc01e2ce57be8940e1a269bc69e
         }
 
         return $this->_user;
