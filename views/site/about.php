@@ -11,8 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        This is the About page. You may modify the following file to customize its content:
+        Boundaries is an upcoming Project that gives a detail view of properties in your area. Stay tuned
     </p>
 
-    <code><?= __FILE__ ?></code>
 </div>

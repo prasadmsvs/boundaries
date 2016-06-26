@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\UserForm;
+use app\models\Property;
 
 class SiteController extends Controller
 {
@@ -50,7 +51,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+		$model = new Property();
+		$properties = $model->getProperties();
+
+        return $this->render('index', [
+			'properties'=>$properties
+        ]);
     }
 
     public function actionLogin()

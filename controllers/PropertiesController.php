@@ -35,12 +35,13 @@ class PropertiesController extends Controller
      */
     public function actionIndex()
     {
+		$model = new Property();
+		$properties = $model->getProperties();
         $searchModel = new PropertiesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+			'properties'=>$properties
         ]);
     }
 

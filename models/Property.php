@@ -43,6 +43,25 @@ class Property extends \yii\db\ActiveRecord
         ];
     }
 
+	/**
+	* Gets all properties
+	*/
+	public function getProperties(){
+		$properties_result = Property::find()
+		->indexBy('id')
+		->all();
+		$properties = array();
+		foreach($properties_result as $property){
+			array_push(
+				$properties,
+				array(
+					"name"=>$property->name,
+					"description"=>$property->description
+					)
+			);
+		}
+		return $properties;
+	}
     /**
      * @inheritdoc
      */

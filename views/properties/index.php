@@ -18,19 +18,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Property', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'location',
-            'user',
-            'description',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-</div>
+	
+	 <div class="row">
+		<?php 
+			foreach($properties as $property){
+		?>
+				<div class="col-lg-4">
+					<h2><?php echo $property["name"];?></h2>
+					<p><?php echo $property["description"];?></p>
+				</div>
+		<?php
+			}
+		?>
+	</div>
