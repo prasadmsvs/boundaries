@@ -7,11 +7,11 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
+    <div class="jumbotron bound-leadspace">
 
     </div>
 
-    <div class="body-content">
+    <div class="body-content boundaries-content-home">
 
         <div class="row">
 		<?php 
@@ -20,6 +20,7 @@ $this->title = 'My Yii Application';
 				<div class="col-lg-4">
 					<h2><?php echo $property["name"];?></h2>
 					<p><?php echo $property["description"];?></p>
+					<img class="img-responsive" src="<?php echo Yii::getAlias('@web')."/".$property["image"];?>" />
 				</div>
 		<?php
 			}

@@ -20,6 +20,7 @@ use Yii;
  */
 class Property extends \yii\db\ActiveRecord
 {
+	public $file;
     /**
      * @inheritdoc
      */
@@ -37,9 +38,11 @@ class Property extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['id', 'location', 'user'], 'integer'],
             [['name'], 'string', 'max' => 225],
-            [['description'], 'string', 'max' => 255],
+            [['description','image'], 'string', 'max' => 255],
             [['location'], 'exist', 'skipOnError' => true, 'targetClass' => Locations::className(), 'targetAttribute' => ['location' => 'id']],
             [['user'], 'exist', 'skipOnError' => true, 'targetClass' => BoundariesUser::className(), 'targetAttribute' => ['user' => 'id']],
+			[['price'], 'integer'],
+			[['file'],'file']
         ];
     }
 
@@ -56,7 +59,8 @@ class Property extends \yii\db\ActiveRecord
 				$properties,
 				array(
 					"name"=>$property->name,
-					"description"=>$property->description
+					"description"=>$property->description,
+					"image"=>$property->image
 					)
 			);
 		}

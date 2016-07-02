@@ -8,6 +8,7 @@ use app\models\PropertiesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PropertiesController implements the CRUD actions for Property model.
@@ -70,7 +71,9 @@ class PropertiesController extends Controller
 			$user_id = Yii::$app->user->getId();
 			$location_id = 1;
 			$property["Property"] = array_merge($property["Property"],array("user"=>$user_id,"location"=>$location_id));
-			var_dump($property);
+			$model->file = UploadedFile::getInstance($model,'file');
+			$model->file->saveAs('uploads/propertyImage'.strtotime('now').'.'.$model->file->extension);
+			$model->image='uploads/'."propertyImage".strtotime("now").".".$model->file->extension;
 			if ($model->load($property) && $model->save()) {
 				return $this->redirect(['view', 'id' => $model->id]);
 			} else {

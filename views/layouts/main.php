@@ -27,11 +27,11 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Boundaries',
+        'brandLabel' => Html::img(Yii::getAlias('@web')."/images/".'logo.jpg'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
+            'class' => 'navbar-fixed-top bound-nav',
+        ]
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
@@ -64,7 +64,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer navbar-fixed-bottom">
+<footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; Boundaries <?= date('Y') ?></p>
     </div>

@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				<div class="col-lg-4">
 					<h2><?php echo $property["name"];?></h2>
 					<p><?php echo $property["description"];?></p>
+					<img class="img-responsive" src="<?php echo Yii::getAlias('@web')."/".$property["image"];?>" />
 				</div>
 		<?php
 			}
