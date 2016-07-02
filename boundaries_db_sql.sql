@@ -15,34 +15,39 @@ CREATE DATABASE IF NOT EXISTS `boundaries` /*!40100 DEFAULT CHARACTER SET utf8 *
 USE `boundaries`;
 
 
--- Dumping structure for table boundaries.features
-CREATE TABLE IF NOT EXISTS `features` (
+-- Dumping structure for table boundaries.images
+CREATE TABLE IF NOT EXISTS `images` (
+  `description` int(11) NOT NULL,
+  `image_types_id` int(11) NOT NULL,
+  `property_id` int(11) NOT NULL,
+  PRIMARY KEY (`description`,`image_types_id`),
+  KEY `fk_images_image_types1_idx` (`image_types_id`),
+  KEY `fk_images_property1_idx` (`property_id`),
+  CONSTRAINT `fk_images_image_types1` FOREIGN KEY (`image_types_id`) REFERENCES `image_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_images_property1` FOREIGN KEY (`property_id`) REFERENCES `property` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table boundaries.images: ~0 rows (approximately)
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+
+
+-- Dumping structure for table boundaries.image_types
+CREATE TABLE IF NOT EXISTS `image_types` (
   `id` int(11) NOT NULL,
-  `feature` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `feature_UNIQUE` (`feature`)
+  `name` varchar(45) NOT NULL,
+  `description` varchar(225) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table boundaries.features: ~0 rows (approximately)
-/*!40000 ALTER TABLE `features` DISABLE KEYS */;
-/*!40000 ALTER TABLE `features` ENABLE KEYS */;
-
-
--- Dumping structure for table boundaries.features_has_property_types
-CREATE TABLE IF NOT EXISTS `features_has_property_types` (
-  `features_id` int(11) NOT NULL,
-  `property_types_id` int(11) NOT NULL,
-  PRIMARY KEY (`features_id`,`property_types_id`),
-  KEY `fk_features_has_property_types_property_types1_idx` (`property_types_id`),
-  KEY `fk_features_has_property_types_features1_idx` (`features_id`),
-  CONSTRAINT `fk_features_has_property_types_features1` FOREIGN KEY (`features_id`) REFERENCES `features` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_features_has_property_types_property_types1` FOREIGN KEY (`property_types_id`) REFERENCES `property_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table boundaries.features_has_property_types: ~0 rows (approximately)
-/*!40000 ALTER TABLE `features_has_property_types` DISABLE KEYS */;
-/*!40000 ALTER TABLE `features_has_property_types` ENABLE KEYS */;
+-- Dumping data for table boundaries.image_types: ~4 rows (approximately)
+/*!40000 ALTER TABLE `image_types` DISABLE KEYS */;
+REPLACE INTO `image_types` (`id`, `name`, `description`) VALUES
+	(1, 'exterior', 'Exterior area'),
+	(2, 'interior', 'Interior area'),
+	(3, 'Floor plan', 'Floor plan'),
+	(4, 'EC', 'Encumbrance Certificate');
+/*!40000 ALTER TABLE `image_types` ENABLE KEYS */;
 
 
 -- Dumping structure for table boundaries.locations
@@ -78,20 +83,38 @@ CREATE TABLE IF NOT EXISTS `property` (
   `location` int(11) DEFAULT NULL,
   `user` int(11) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
+  `image` varchar(225) DEFAULT NULL,
+  `price` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `location_id_idx` (`location`),
   KEY `user_id_idx` (`user`),
   CONSTRAINT `location_id` FOREIGN KEY (`location`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_id` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table boundaries.property: ~3 rows (approximately)
 /*!40000 ALTER TABLE `property` DISABLE KEYS */;
-REPLACE INTO `property` (`id`, `name`, `location`, `user`, `description`) VALUES
-	(1, 'my home', 1, 1, 'my description'),
-	(2, 'property 2', 1, 1, 'pro'),
-	(3, 'property 3', 1, 1, 'prolsjslfj');
+REPLACE INTO `property` (`id`, `name`, `location`, `user`, `description`, `image`, `price`) VALUES
+	(8, 'My sweet home', 1, 1, '2BHK home for sale', 'uploads/propertyImage1467470600.jpg', 800000),
+	(9, 'Land', 1, 1, 'Land at Nagawara for lease', 'uploads/propertyImage1467470883.jpg', 20000),
+	(10, 'Home', 1, 1, 'House for rent', 'uploads/propertyImage1467470936.jpg', 1000000);
 /*!40000 ALTER TABLE `property` ENABLE KEYS */;
+
+
+-- Dumping structure for table boundaries.property_has_images
+CREATE TABLE IF NOT EXISTS `property_has_images` (
+  `property_id` int(11) NOT NULL,
+  `images_description` int(11) NOT NULL,
+  PRIMARY KEY (`property_id`,`images_description`),
+  KEY `fk_property_has_images_images1_idx` (`images_description`),
+  KEY `fk_property_has_images_property1_idx` (`property_id`),
+  CONSTRAINT `fk_property_has_images_property1` FOREIGN KEY (`property_id`) REFERENCES `property` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_property_has_images_images1` FOREIGN KEY (`images_description`) REFERENCES `images` (`description`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table boundaries.property_has_images: ~0 rows (approximately)
+/*!40000 ALTER TABLE `property_has_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `property_has_images` ENABLE KEYS */;
 
 
 -- Dumping structure for table boundaries.property_types
@@ -103,8 +126,17 @@ CREATE TABLE IF NOT EXISTS `property_types` (
   UNIQUE KEY `description_UNIQUE` (`description`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table boundaries.property_types: ~0 rows (approximately)
+-- Dumping data for table boundaries.property_types: ~8 rows (approximately)
 /*!40000 ALTER TABLE `property_types` DISABLE KEYS */;
+REPLACE INTO `property_types` (`id`, `name`, `description`) VALUES
+	(1, 'house', 'House'),
+	(2, 'office', 'Office'),
+	(3, 'flat', 'Flat'),
+	(4, 'shop', 'Commercial vendor Shop'),
+	(5, 'restaurant', 'Eatery,pub e.t.c'),
+	(6, 'plot', 'House Plot'),
+	(7, 'land', 'Land'),
+	(8, 'parking', 'Parking area');
 /*!40000 ALTER TABLE `property_types` ENABLE KEYS */;
 
 
