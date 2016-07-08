@@ -30,10 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'location',
             'user',
-            'description',
+            'description'
         ],
     ]) ?>
+    <div class="row">
+        <div class="col-md-8"> 
+            <img class="img-responsive" src="<?php echo Yii::getAlias('@web')."/".$model->image;?>" />
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+   
+    
 
 </div>

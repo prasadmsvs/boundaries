@@ -8,8 +8,12 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\web\View;
 
 AppAsset::register($this);
+
+
+$this->registerJsFile("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js");
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

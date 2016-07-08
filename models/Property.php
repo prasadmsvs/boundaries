@@ -9,18 +9,16 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
- * @property integer $location
  * @property integer $user
  * @property string $description
  *
- * @property Locations $location0
  * @property User $user0
  * @property PropertyTypesHasProperty[] $propertyTypesHasProperties
  * @property PropertyTypes[] $propertyTypes
  */
 class Property extends \yii\db\ActiveRecord
 {
-	public $file;
+    public $file;
     /**
      * @inheritdoc
      */
@@ -36,13 +34,14 @@ class Property extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['id', 'location', 'user'], 'integer'],
+            [['id', 'user'], 'integer'],
             [['name'], 'string', 'max' => 225],
             [['description','image'], 'string', 'max' => 255],
-            [['location'], 'exist', 'skipOnError' => true, 'targetClass' => Locations::className(), 'targetAttribute' => ['location' => 'id']],
             [['user'], 'exist', 'skipOnError' => true, 'targetClass' => BoundariesUser::className(), 'targetAttribute' => ['user' => 'id']],
-			[['price'], 'integer'],
-			[['file'],'file']
+            [['price'], 'integer'],
+            [['file'],'file'],
+            [['lat','lon'],'number']
+          
         ];
     }
 
@@ -55,14 +54,14 @@ class Property extends \yii\db\ActiveRecord
 		->all();
 		$properties = array();
 		foreach($properties_result as $property){
-			array_push(
-				$properties,
-				array(
-					"name"=>$property->name,
-					"description"=>$property->description,
-					"image"=>$property->image
-					)
-			);
+                    array_push(
+                        $properties,
+                        array(
+                                "name"=>$property->name,
+                                "description"=>$property->description,
+                                "image"=>$property->image
+                                )
+                    );
 		}
 		return $properties;
 	}
@@ -74,7 +73,6 @@ class Property extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'location' => 'Location',
             'user' => 'User',
             'description' => 'Description',
         ];
@@ -83,17 +81,9 @@ class Property extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLocation0()
-    {
-        return $this->hasOne(Locations::className(), ['id' => 'location']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getUser0()
     {
-        return $this->hasOne(User::className(), ['id' => 'user']);
+        return $this->hasOne(BoundariesUser::className(), ['id' => 'user']);
     }
 
     /**

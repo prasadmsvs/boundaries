@@ -36,14 +36,14 @@ class PropertiesController extends Controller
      */
     public function actionIndex()
     {
-		$model = new Property();
-		$properties = $model->getProperties();
-        $searchModel = new PropertiesSearch();
+      $model = new Property();
+      $properties = $model->getProperties();
+      $searchModel = new PropertiesSearch();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-			'properties'=>$properties
-        ]);
+      return $this->render('index', [
+          'searchModel' => $searchModel,
+          'properties'=>$properties
+      ]);
     }
 
     /**
@@ -66,26 +66,25 @@ class PropertiesController extends Controller
     public function actionCreate()
     {
         $model = new Property();
-		$property  = Yii::$app->request->post();
-		if(isset($property["Property"])){
-			$user_id = Yii::$app->user->getId();
-			$location_id = 1;
-			$property["Property"] = array_merge($property["Property"],array("user"=>$user_id,"location"=>$location_id));
-			$model->file = UploadedFile::getInstance($model,'file');
-			$model->file->saveAs('uploads/propertyImage'.strtotime('now').'.'.$model->file->extension);
-			$model->image='uploads/'."propertyImage".strtotime("now").".".$model->file->extension;
-			if ($model->load($property) && $model->save()) {
-				return $this->redirect(['view', 'id' => $model->id]);
-			} else {
-				return $this->render('create', [
-					'model' => $model,
-				]);
-			}
-		} else {
-			return $this->render('create', [
-				'model' => $model,
-			]);
-		}
+        $property  = Yii::$app->request->post();
+        $user_id = Yii::$app->user->getId();
+        if(isset($property["Property"]) && $user_id){
+          $property["Property"] = array_merge($property["Property"],array("user"=>$user_id));
+          $model->file = UploadedFile::getInstance($model,'file');
+          $model->file->saveAs('uploads/propertyImage'.strtotime('now').'.'.$model->file->extension);
+          $model->image='uploads/'."propertyImage".strtotime("now").".".$model->file->extension;
+          if ($model->load($property) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+          } else {
+            return $this->render('create', [
+              'model' => $model,
+            ]);
+          }
+        } else {
+          return $this->render('create', [
+                  'model' => $model,
+          ]);
+        }
 		
     }
 
@@ -98,13 +97,21 @@ class PropertiesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model_user = $model->user;
+        $property  = Yii::$app->request->post();
+        $user_id = Yii::$app->user->getId();
+        if(isset($property["Property"]) && $user_id && $user_id==$model_user){
+          if ($model->load(Yii::$app->request->post()) && $model->save()) {
+              return $this->redirect(['view', 'id' => $model->id]);
+          } else {
+              return $this->render('update', [
+                  'model' => $model,
+              ]);
+          }
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+          return $this->render('update', [
+                  'model' => $model,
+              ]);
         }
     }
 
