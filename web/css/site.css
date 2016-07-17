@@ -24,11 +24,6 @@ body {
 	color: #fff;
 }
 
-.jumbotron {
-    text-align: center;
-    background-color: transparent;
-}
-
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px;
@@ -100,12 +95,21 @@ a.desc:after {
 	background:#fff;
 	min-height: 100px;
 }
-
+.leadspace-pd-left{
+    padding-left: 20%
+}
 .bound-leadspace{
 	background:url(./../images/leadspace-bg.jpg) no-repeat;
 	background-size: cover;
 	border-radius: 0 !important;
 	min-height: 310px !important;
+        margin-top: 100px;
+}
+.bound-leadspace .leadspace-heading{
+    color: #DE6000;
+}
+.bound-leadspace .leadspace-description{
+    color: #C84A26;
 }
 
 .shadow{

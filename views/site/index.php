@@ -15,11 +15,11 @@ $this->title = 'Boundaries';
       $count = 0;
 			foreach($properties as $property){
         if($count%3==0){?>
-        </div><div class="row row-eq-height">
-        <?php
-        }
+          </div><div class="row row-eq-height">
+          <?php
+          }
         $count++;
-		?>
+        ?>
 				<div class="col-lg-4">
             <div class="card shadow">
                 <div>

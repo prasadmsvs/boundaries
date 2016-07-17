@@ -60,7 +60,15 @@ $this->registerJsFile("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquer
     NavBar::end();
     ?>
     <div class="jumbotron bound-leadspace">
-
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <h2 class="leadspace-heading">Best Homes in city</h1>
+              <h4 class="leadspace-description">Explore the awesome homes to Buy or Rent</h3>
+            </div>
+            <div class="col-md8"></div>
+          </div>
+        </div>
     </div>
     <div class="container">
         <?= Breadcrumbs::widget([
