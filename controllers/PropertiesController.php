@@ -77,7 +77,16 @@ class PropertiesController extends Controller
           $model->file = UploadedFile::getInstance($model,'file');
           $model->file->saveAs('uploads/propertyImage'.strtotime('now').'.'.$model->file->extension);
           $model->image='uploads/'."propertyImage".strtotime("now").".".$model->file->extension;
+          $model->property_types_id = 1;
           if ($model->load($property) && $model->save()) {
+            $areamodel->length = $property["Area"]["length"]; 
+            $areamodel->width = $property["Area"]["width"]; 
+            $areamodel->property_id = $model->id;
+            $bedroomsmodel->no_of_bedrooms = $property["Bedrooms"]["no_of_bedrooms"];
+            $bedroomsmodel->property_id = $model->id;
+            $areamodel->save();
+            $bedroomsmodel->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
           } else {
             return $this->render('create', [
@@ -105,8 +114,7 @@ class PropertiesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $areamodel = new Area();
-        $bedroomsmodel = new Bedrooms();
+        
         $model_user = $model->user;
         $property  = Yii::$app->request->post();
         $user_id = Yii::$app->user->getId();

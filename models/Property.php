@@ -34,7 +34,7 @@ class Property extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['id', 'user'], 'integer'],
+            [['id', 'user','property_types_id'], 'integer'],
             [['name'], 'string', 'max' => 225],
             [['description','image'], 'string', 'max' => 255],
             [['user'], 'exist', 'skipOnError' => true, 'targetClass' => BoundariesUser::className(), 'targetAttribute' => ['user' => 'id']],

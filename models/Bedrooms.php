@@ -29,7 +29,7 @@ class Bedrooms extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'property_id'], 'required'],
+            [['property_id'], 'required'],
             [['id', 'property_id'], 'integer'],
             [['no_of_bedrooms'], 'string', 'max' => 45],
             [['property_id'], 'exist', 'skipOnError' => true, 'targetClass' => Property::className(), 'targetAttribute' => ['property_id' => 'id']],

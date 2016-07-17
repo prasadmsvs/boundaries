@@ -141,9 +141,6 @@ a.desc:after {
     margin: 0px auto;   
 }
 .card .card-title,.card .card-text{
-    padding-top: 10px;
-}
-.card .card-text{
     padding-bottom: 10px;
 }
 

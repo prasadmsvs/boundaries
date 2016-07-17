@@ -30,8 +30,8 @@ class Area extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'property_id'], 'required'],
-            [['id', 'property_id'], 'integer'],
+            [['property_id'], 'required'],
+            [['property_id'], 'integer'],
             [['length', 'width'], 'number'],
             [['property_id'], 'exist', 'skipOnError' => true, 'targetClass' => Property::className(), 'targetAttribute' => ['property_id' => 'id']],
         ];
