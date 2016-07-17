@@ -59,6 +59,9 @@ $this->registerJsFile("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquer
     ]);
     NavBar::end();
     ?>
+    <div class="jumbotron bound-leadspace">
+
+    </div>
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

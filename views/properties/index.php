@@ -23,11 +23,15 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?php 
 			foreach($properties as $property){
 		?>
-				<div class="col-lg-4">
-					<h2><?php echo $property["name"];?></h2>
-					<p><?php echo $property["description"];?></p>
-					<img class="img-responsive" src="<?php echo Yii::getAlias('@web')."/".$property["image"];?>" />
-				</div>
+        <div class="col-lg-4">
+            <div class="card">
+                <img class="card-img-top img-responsive" src="<?php echo Yii::getAlias('@web')."/".$property["image"];?>" alt="">
+                <div class="card-block">
+                  <h4 class="card-title"><a href="<?php echo Yii::$app->getHomeUrl()."properties/".$property["id"]?>"><?php echo $property["name"];?></a></h4>
+                  <p class="card-text"><?php echo $property["description"];?></p>
+                </div>
+            </div>
+        </div>
 		<?php
 			}
 		?>

@@ -12,7 +12,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 100px 15px 20px;
+   /* padding: 100px 15px 20px;*/
 }
 
 .footer {
@@ -108,3 +108,48 @@ a.desc:after {
 	min-height: 310px !important;
 }
 
+.shadow{
+      -webkit-box-shadow: 0px 5px 5px -0px rgba(0,0,0,0.3);
+      -moz-box-shadow: 0px 5px 5px -0px rgba(0,0,0,0.3);
+       box-shadow: 0px 5px 5px -0px rgba(0,0,0,0.3);
+}
+
+.card{
+    background: white;
+}
+.row{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.card .card-img-top{
+    height: 300px;
+    width: 100%;
+}
+.card .card-title{
+    width: 80%;
+    margin: 0px auto;
+}
+.card .card-title a{
+    color: #579995; 
+}
+.card .card-text{
+    width: 80%;
+    margin: 0px auto;   
+}
+.card .card-title,.card .card-text{
+    padding-top: 10px;
+}
+.card .card-text{
+    padding-bottom: 10px;
+}
+
+.card .card-text-over{
+   position: relative;
+   left: 16px;
+   bottom: 46px;
+   background: #333333;
+   display: inline-block;
+   padding: 6px;
+   font-size: 14px;
+   color:#fff;
+}

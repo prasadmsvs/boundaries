@@ -53,7 +53,7 @@ class SiteController extends Controller
     {
 		$model = new Property();
 		$properties = $model->getProperties();
-
+    $this->layout = 'home';
         return $this->render('index', [
 			'properties'=>$properties
         ]);

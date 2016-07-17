@@ -57,9 +57,11 @@ class Property extends \yii\db\ActiveRecord
                     array_push(
                         $properties,
                         array(
+                                "id"=>$property->id,
                                 "name"=>$property->name,
                                 "description"=>$property->description,
-                                "image"=>$property->image
+                                "image"=>$property->image,
+                                "price"=>$property->price
                                 )
                     );
 		}

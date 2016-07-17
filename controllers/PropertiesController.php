@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use app\models\Area;
+use app\models\Bedrooms;
 
 /**
  * PropertiesController implements the CRUD actions for Property model.
@@ -66,6 +68,8 @@ class PropertiesController extends Controller
     public function actionCreate()
     {
         $model = new Property();
+        $areamodel = new Area();
+        $bedroomsmodel = new Bedrooms();
         $property  = Yii::$app->request->post();
         $user_id = Yii::$app->user->getId();
         if(isset($property["Property"]) && $user_id){
@@ -78,11 +82,15 @@ class PropertiesController extends Controller
           } else {
             return $this->render('create', [
               'model' => $model,
+              'areamodel'=>$areamodel,
+              'bedroomsmodel'=>$bedroomsmodel
             ]);
           }
         } else {
           return $this->render('create', [
                   'model' => $model,
+                  'areamodel'=>$areamodel,
+                  'bedroomsmodel'=>$bedroomsmodel
           ]);
         }
 		
@@ -97,6 +105,8 @@ class PropertiesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $areamodel = new Area();
+        $bedroomsmodel = new Bedrooms();
         $model_user = $model->user;
         $property  = Yii::$app->request->post();
         $user_id = Yii::$app->user->getId();
@@ -106,11 +116,15 @@ class PropertiesController extends Controller
           } else {
               return $this->render('update', [
                   'model' => $model,
+                  'areamodel'=>$areamodel,
+                  'bedroomsmodel'=>$bedroomsmodel
               ]);
           }
         } else {
           return $this->render('update', [
                   'model' => $model,
+                  'areamodel'=>$areamodel,
+                  'bedroomsmodel'=>$bedroomsmodel
               ]);
         }
     }
