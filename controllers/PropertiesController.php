@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\Area;
 use app\models\Bedrooms;
+use app\models\PropertyTypes;
 
 /**
  * PropertiesController implements the CRUD actions for Property model.
@@ -38,6 +39,9 @@ class PropertiesController extends Controller
      */
     public function actionIndex()
     {
+      if (Yii::$app->user->isGuest) {
+        return $this->goHome();
+      }
       $model = new Property();
       $properties = $model->getProperties();
       $searchModel = new PropertiesSearch();
@@ -55,6 +59,9 @@ class PropertiesController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+          return $this->goHome();
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -67,9 +74,13 @@ class PropertiesController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+          return $this->goHome();
+        }
         $model = new Property();
         $areamodel = new Area();
         $bedroomsmodel = new Bedrooms();
+        $property_typesmodel = new PropertyTypes;
         $property  = Yii::$app->request->post();
         $user_id = Yii::$app->user->getId();
         if(isset($property["Property"]) && $user_id){
@@ -92,14 +103,16 @@ class PropertiesController extends Controller
             return $this->render('create', [
               'model' => $model,
               'areamodel'=>$areamodel,
-              'bedroomsmodel'=>$bedroomsmodel
+              'bedroomsmodel'=>$bedroomsmodel,
+              'property_typesmodel'=>$property_typesmodel
             ]);
           }
         } else {
           return $this->render('create', [
-                  'model' => $model,
-                  'areamodel'=>$areamodel,
-                  'bedroomsmodel'=>$bedroomsmodel
+              'model' => $model,
+              'areamodel'=>$areamodel,
+              'bedroomsmodel'=>$bedroomsmodel,
+              'property_typesmodel'=>$property_typesmodel
           ]);
         }
 		
@@ -113,26 +126,40 @@ class PropertiesController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+          return $this->goHome();
+        }
         $model = $this->findModel($id);
-        
+        $areamodel = Area::findOne(["property_id"=>$model->id]);
+        $bedroomsmodel = Bedrooms::findOne(["property_id"=>$model->id]);
+        $property_typesmodel = new PropertyTypes;
         $model_user = $model->user;
         $property  = Yii::$app->request->post();
         $user_id = Yii::$app->user->getId();
         if(isset($property["Property"]) && $user_id && $user_id==$model_user){
           if ($model->load(Yii::$app->request->post()) && $model->save()) {
+              $areamodel->length = $property["Area"]["length"]; 
+              $areamodel->width = $property["Area"]["width"]; 
+              $areamodel->property_id = $model->id;
+              $bedroomsmodel->no_of_bedrooms = $property["Bedrooms"]["no_of_bedrooms"];
+              $bedroomsmodel->property_id = $model->id;
+              $areamodel->save();
+              $bedroomsmodel->save();
               return $this->redirect(['view', 'id' => $model->id]);
           } else {
               return $this->render('update', [
                   'model' => $model,
                   'areamodel'=>$areamodel,
-                  'bedroomsmodel'=>$bedroomsmodel
+                  'bedroomsmodel'=>$bedroomsmodel,
+                  'property_typesmodel'=>$property_typesmodel
               ]);
           }
         } else {
           return $this->render('update', [
                   'model' => $model,
                   'areamodel'=>$areamodel,
-                  'bedroomsmodel'=>$bedroomsmodel
+                  'bedroomsmodel'=>$bedroomsmodel,
+                  'property_typesmodel'=>$property_typesmodel
               ]);
         }
     }
@@ -145,6 +172,9 @@ class PropertiesController extends Controller
      */
     public function actionDelete($id)
     {
+      if (Yii::$app->user->isGuest) {
+        return $this->goHome();
+      }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

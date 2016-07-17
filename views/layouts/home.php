@@ -42,7 +42,7 @@ $this->registerJsFile("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquer
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
-			['label' => 'Properties', 'url' => ['/properties/index']],
+            ['label' => 'Properties', 'url' => ['/properties/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

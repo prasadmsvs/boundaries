@@ -4,11 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\View;
 use yii\bootstrap\Tabs;
+use yii\helpers\BaseHtml;
+use yii\helpers\ArrayHelper;
+use yii\bootstrap\Dropdown;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Property */
 /* @var $areamodel app\models\Area */
 /* @var $bedroomsmodel app\models\Bedrooms */
+/* @var $property_typesmodel app\models\propertyTypes */
 /* @var $form yii\widgets\ActiveForm */
 
 $this->registerJsFile('http://maps.googleapis.com/maps/api/js?key=AIzaSyBH1gIsDQZvNAcp1At-3MfNfjpuihPVXiQ');
@@ -18,6 +22,8 @@ $this->registerJsFile(Yii::getAlias('@web')."/js/boundaries.js");
 <div class="property-form">
 
     <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
+    
+   <?php Html::activeDropDownList($property_typesmodel, 'id', ArrayHelper::map($property_typesmodel->find()->indexBy('id')->all(), 'id', 'name')); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -32,6 +38,7 @@ $this->registerJsFile(Yii::getAlias('@web')."/js/boundaries.js");
     <?= $form->field($model, 'lon')->hiddenInput()->label(FALSE) ?>
     
     <div id="googleMap" style="width:500px;height:380px;"></div>
+    
     
     <?= $form->field($areamodel, 'length')->textInput() ?>
     
@@ -48,3 +55,4 @@ $this->registerJsFile(Yii::getAlias('@web')."/js/boundaries.js");
     <?php ActiveForm::end(); ?>
 
 </div>
+

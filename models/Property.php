@@ -67,7 +67,22 @@ class Property extends \yii\db\ActiveRecord
 		}
 		return $properties;
 	}
-    /**
+  
+  public function getFeatures()
+  {
+    return array(
+      "house"=>array("Area","Bedrooms"),
+      "house"=>array("Area","Bedrooms"),
+      "office"=>array("Area"),
+      "shop"=>array("Area"),
+      "restaurant"=>array("Area"),
+      "plot"=>array("Area"),
+      "land"=>array("Area"),
+      "parking"=>array("Area")
+    );
+  }
+
+  /**
      * @inheritdoc
      */
     public function attributeLabels()

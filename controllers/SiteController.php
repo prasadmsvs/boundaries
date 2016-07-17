@@ -51,18 +51,21 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-		$model = new Property();
-		$properties = $model->getProperties();
-    $this->layout = 'home';
-        return $this->render('index', [
-			'properties'=>$properties
-        ]);
+      if (Yii::$app->user->isGuest) {
+        return $this->actionLogin();
+      }
+      $model = new Property();
+      $properties = $model->getProperties();
+      $this->layout = 'home';
+      return $this->render('index', [
+        'properties'=>$properties
+      ]);
     }
 
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->actionIndex();
         }
 
         $model = new LoginForm();
